@@ -1,17 +1,5 @@
 const initialState = {
   users: [
-    {
-      name: 'Rob',
-      surName: 'Zombie',
-      mail: 'zombie@gmail.com',
-      phone: '+375295672224'
-    },
-    {
-      name: 'Freddie',
-      surName: 'Merquiry',
-      mail: 'fred911@gmail.com',
-      phone: '+375445632333'
-    }
   ],
   inputs: {
     name: '',
@@ -25,12 +13,15 @@ export default function rootReducer(state = initialState, action) {
 
   switch (action.type) {
     case 'DEL':
+      const updatedUsers = state.users.filter((user, idx) => idx !== action.payload);
+      localStorage.setItem('state', JSON.stringify(updatedUsers))
       return {
-        users: state.users.filter((user, idx) => idx !== action.payload)
+        users: updatedUsers
       }
     case 'ADD':
-      const newUsers = state.users.concat();
-      newUsers.push(state.inputs)
+      const newUsers = state.users.length > 0 ? state.users.concat() : [];
+      newUsers.push(state.inputs);
+      localStorage.setItem('state', JSON.stringify(newUsers))
       return {
         users: newUsers,
         inputs: {
@@ -56,6 +47,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         users: state.users,
         inputs: newInputs
+      }
+    case 'LOAD':
+      const loadedUsers = action.users;
+      return {
+        users: loadedUsers,
+        inputs: state.inputs
       }
     default:
       return state

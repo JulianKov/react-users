@@ -8,6 +8,10 @@ class NewUser extends React.Component {
     event.preventDefault();
   }
 
+  onAddHandler = () => {
+    this.props.onAdd();
+  }
+
   render() {
     return (
       <div>
@@ -17,7 +21,7 @@ class NewUser extends React.Component {
           <input type="text" onChange={(event) => this.props.onChange('surName', event)}></input>
           <input type="text" onChange={(event) => this.props.onChange('mail', event)}></input>
           <input type="text" onChange={(event) => this.props.onChange('phone', event)}></input>
-          <NavLink to='/users' onClick={this.props.onAdd}>Add</NavLink>
+          <NavLink to='/users' onClick={this.onAddHandler}>Add</NavLink>
           <NavLink to='/users' onClick={this.props.onCancel}>Cancel</NavLink>
         </form>
       </div>
@@ -25,6 +29,11 @@ class NewUser extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  }
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -34,4 +43,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(NewUser)
+export default connect(mapStateToProps, mapDispatchToProps)(NewUser)
