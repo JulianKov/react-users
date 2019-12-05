@@ -13,16 +13,16 @@ class UserList extends React.Component {
   render() {
     console.log(this.props.users)
     return (
-      <div>
+      <div className="container">
         <h2>Users</h2>
-        <NavLink to='/new'>Add User</NavLink>
-        <ul>
+        <NavLink to='/new' className="btn btn-primary mb-5">Add User</NavLink>
+        <ul className="list-group">
           {this.props.users === null ? null :
             this.props.users.map((user, idx) => {
               return (
-                <li key={idx}>
+                <li key={idx} className="list-group-item">
                   <h3>{user.name} {user.surName}</h3>
-                  <button onClick={() => this.props.onDelete(idx)}>Delete</button>
+                  <button className="btn btn-danger mb-5" onClick={() => this.props.onDelete(idx)}>Delete</button>
                 </li>
               )
             })}
