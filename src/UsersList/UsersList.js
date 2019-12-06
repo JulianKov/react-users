@@ -6,7 +6,8 @@ class UserList extends React.Component {
   users = [];
 
   async componentDidMount() {
-    const users = await JSON.parse(localStorage.getItem('state'));
+    const users = localStorage.getItem('state')? await JSON.parse(localStorage.getItem('state')) 
+    : [] ;
     this.props.onLoad(users);
   }
 

@@ -19,6 +19,7 @@ export default function rootReducer(state = initialState, action) {
         users: updatedUsers
       }
     case 'ADD':
+      console.log(state.users)
       const newUsers = state.users.length > 0 ? state.users.concat() : [];
       newUsers.push(state.inputs);
       localStorage.setItem('state', JSON.stringify(newUsers))
